@@ -1,0 +1,25 @@
+---
+title: "covariance function"
+author: "kousuke kikuchi"
+date: "April 12, 2015"
+output: html_document
+---
+
+First of all, read csv file. the file is not attached on this git, but exists on local environment. 
+```{r}
+cins <- read.csv("rchk_cins.csv", header=FALSE)
+```
+A Preprocessing is necessary for this data to analyze stationary process. This data from the interner follows poisson distribution, so we use logarithm.
+```{r}
+log_cins <- log(cins[2])
+```
+After the normalization, do time-series analysis. R provides ts function. How to use this function is quite simple: add list as a paramter.
+```{r}
+w <- ts(log_cins)
+```
+Finally draw and calculate time-series covariance.
+```{r}
+plot(w)
+acf(w)
+```
+From this the acf, this function has 7 days of constant period.
