@@ -6,10 +6,12 @@ c.f. http://www.amazon.co.jp/%E7%B5%8C%E6%B8%88%E3%83%BB%E3%83%95%E3%82%A1%E3%82
 TSSS: http://jasp.ism.ac.jp/ism/TSSS/
 
 ## How to install TSSS
-# 1. save this file, http://jasp.ism.ac.jp/ism/TSSS/TSSS_1.0.1.tar.gz
-# 2. install gfortran-4.8, which is a dependency of TSSS
-> curl -O http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2
-> sudo tar fvxz gfortran-4.8.2-darwin13.tar.bz2 -C /
+
+# 1. install gfortran-4.8, which is a dependency of TSSS
+curl -O http://r.research.att.com/libs/gfortran-4.8.2-darwin13.tar.bz2
+sudo tar fvxz gfortran-4.8.2-darwin13.tar.bz2 -C /
+# 2. save this file
+http://jasp.ism.ac.jp/ism/TSSS/TSSS_1.0.1.tar.gz
 # 3. install TSSS on R console
-> install.packages("path/to/TSSS.tar.gz", repos=NULL)
-> library(TSSS)
+install.packages("path/to/TSSS.tar.gz", repos=NULL)
+library(TSSS)
