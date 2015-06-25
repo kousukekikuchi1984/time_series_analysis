@@ -7,7 +7,7 @@ output: html_document
 # 8. 局所定常ARモデル
 - 非定常な時系列データに対するARモデルを構築する際に、最も簡単な手法
 - 時間区間を分割して、各区間では定常とし、近似的に定常時系列とみなす
-- TSSSの関数だと何に当たるのかが不明。。。なんだろ。
+- TSSSの関数だとlsar1（8.2）とlsar2（8.3）
 
 ### 8.1 局所定常ARモデル
 - 局所定常時系列
@@ -33,3 +33,41 @@ $$
 - 時系列がある区間の中で著しく確率構造が変化している時間を検出する方法
 - ある区間で構造変化があったと仮定して、全体の時間列とその前後に区分した時間列のAICを計算すれば、評価が可能
 
+### 補足
+- この方法だと、地震波の変化をAICの一番小さい値を計算して検知することはできるが、徐々に変化していくと無理
+- 急激な変化があった時にしか使えない
+- 異常検出は次に行う状態空間モデルを用いるらしい。
+
+### 実際にやってみる
+```{r fig.width=20, fig.height=10, message=FALSE}
+library(TSSS)
+# data(package="TSSS") # libraryのデータの確認
+data(MYE1F)
+summary(MYE1F)
+plot(MYE1F, type="l")
+```
+
+### 8.2のやりかた
+```{r fig.width=10, fig.height=7, message=FALSE}
+lsar1(MYE1F,  ns0 = 100) # ns0は区間に含まれる個数
+
+```
+
+### 8.3のやりかた
+```{r fig.width=10, fig.height=7, message=FALSE}
+# subintervalはここからここまでをとりあえず対象にしますよ
+# candidateはここら辺に変化がありそうだ
+# とりあえずP波の検出（値はグラフをみながら確認）
+lsar2(MYE1F, subinterval=c(400, 800), candidate=c(500, 700))
+# 変化点は630あたりで、AICは1597.215
+
+# S波の検出
+lsar2(MYE1F, subinterval=c(800, 1200), candidate=c(950, 1050))
+# 変化点は1030あたりで、AICは2460.156
+```
+
+```{r fig.width=10, fig.height=7, message=FALSE}
+# S波の検出
+lsar2(MYE1F, subinterval=c(800, 1200), candidate=c(950, 1050))
+# 変化点は1030あたりで、AICは2460.156
+```
