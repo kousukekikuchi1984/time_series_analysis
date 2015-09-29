@@ -63,6 +63,7 @@ $$
 ### 実際にやってみよう
 ```{r fig.width=20, fig.height=10, message=FALSE}
 library(TSSS)
-example(tsmooth)
+example(tsmooth) #の内容をコピペした上で、コメントを書く
+## AR model (l=1, k=1)
 ```
 
